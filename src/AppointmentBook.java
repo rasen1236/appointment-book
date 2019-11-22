@@ -27,7 +27,6 @@ public class AppointmentBook {
     public AppointmentBook() {
         this.appointments = new Appointment[0];
         this.salonServices = new SalonService[0];
-        loadAppointmentsFromFile("appointments.txt");
     }
 
     /**
@@ -50,8 +49,7 @@ public class AppointmentBook {
                 String customerName = scanLine.next();
                 String customerPhone = scanLine.next();
                 String stylistName = scanLine.next();
-                
-                Date date = new Date();//HairSalon.string2Date(scanLine.next());
+                Date date = HairSalon.string2Date(scanLine.next());
                 SalonService[] services = new SalonService[0];
                 Appointment appointment = new Appointment(customerName, customerPhone, stylistName, date);
                 addAppointment(appointment);
@@ -106,6 +104,14 @@ public class AppointmentBook {
     }
 
     /**
+     * Remove appointment by index
+     * @param index  
+     */
+    public void removeAppointment(int index) {
+        //TODO: 
+    }
+
+    /**
      * Returns the index of the 
      * @return tot
      */
@@ -114,19 +120,23 @@ public class AppointmentBook {
         return -1;
     }
 
+    /**
+     * Sort appointment by date
+     * @return 
+     */
     public void sort() {
         // TODO: insertion sort etc
     }
 
     /**
      * Returns the receipt 
-     * @return tot
+     * @return sb, 
      */
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         for (Appointment appointment : appointments) {
-            sb.append(appointment.toString());
+            sb.append(appointment.toString() + "\n");
         }
         return sb.toString();
     }

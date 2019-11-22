@@ -34,8 +34,15 @@ public class HairSalon {
     } 
   
     public static Date string2Date(String date) {
-      SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-      return formatter.parse(date);
+      Date temp = null;
+      try {
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        temp = formatter.parse(date);
+      } catch (Exception e) {
+        //TODO: handle exception
+        e.printStackTrace();
+      }
+      return temp;
     }
 
     public static String date2String(Date date) {
