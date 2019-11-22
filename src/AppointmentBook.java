@@ -112,11 +112,12 @@ public class AppointmentBook {
     }
 
     /**
-     * Returns the index of the 
-     * @return tot
+     * Returns the index of the appointment
+     * @param customerName the name of the customer
+     * @return index
      */
-    public int binarySearch() {
-        // TODO: appointments binary search 
+    public int search(String customername) {
+        // TODO:
         return -1;
     }
 
@@ -125,11 +126,19 @@ public class AppointmentBook {
      * @return 
      */
     public void sort() {
-        // TODO: insertion sort etc
+        // TODO: 
     }
 
     /**
-     * Returns the receipt 
+     * Write appointment receipt to receipt.txt
+     * @param appointment the appointment  
+     */
+    public void writeAppointmentReceiptToFile(Appointment appointment) {
+        //TODO: add formating code
+    }
+
+    /**
+     * Returns 
      * @return sb, 
      */
     @Override
