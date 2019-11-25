@@ -72,6 +72,17 @@ public class Appointment {
         return (int)Math.round(total * taxRate);
     }
 
+    public String toReceiptFormat() {
+        StringBuilder sb = new StringBuilder();
+        String line = (customerName + ", " + customerPhone + ", " + stylistName + ", " + HairSalon.date2String(date) + "\n\n");
+        sb.append(line);
+
+        for (SalonService salonService : salonServices) {
+            sb.append(salonService.toString() + "\n");
+        }
+        return sb.toString();
+    }
+
     /**
      * Returns a string representing a recipt of the salon services
      * @return sb formatted list of all items
@@ -79,12 +90,9 @@ public class Appointment {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        String line = (customerName + ", " + customerPhone + ", " + stylistName + ", " + HairSalon.date2String(date));
+        String line = (customerName + ", " + customerPhone + ", " + stylistName + ", " + HairSalon.date2String(date) + "\n");
+        System.out.println(line);
         sb.append(line);
-
-        // for (SalonService salonService : salonServices) {
-        //     sb.append(salonService.toString());
-        // }
         return sb.toString();
     }
  }

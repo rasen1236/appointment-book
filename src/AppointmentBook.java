@@ -39,8 +39,6 @@ public class AppointmentBook {
             String line = null; 
 			Scanner scan = new Scanner(new FileInputStream(new File(path)));  
 			Scanner scanLine = null; 
-            //int counter = 0; 
-
             while (scan.hasNextLine()) {
                 line = scan.nextLine();
 				scanLine = new Scanner(line);
@@ -51,6 +49,7 @@ public class AppointmentBook {
                 String stylistName = scanLine.next();
                 Date date = HairSalon.string2Date(scanLine.next());
                 SalonService[] services = new SalonService[0];
+                //TODO: populate salon services
                 Appointment appointment = new Appointment(customerName, customerPhone, stylistName, date);
                 addAppointment(appointment);
             }
@@ -73,10 +72,8 @@ public class AppointmentBook {
         try {
             FileWriter fw = new FileWriter(new File(path));
 			FileOutputStream fis = new FileOutputStream(path);
-			PrintWriter pw = new PrintWriter(fis);
-			for(int i=0; i < appointments.length; i++){
-				if(appointments[i]!=null) pw.write(appointments[i].toString() +"\n");
-			}
+            PrintWriter pw = new PrintWriter(fis);
+			pw.write(this.toString());
 			pw.close();
         } 
         catch(FileNotFoundException e) {
@@ -105,10 +102,17 @@ public class AppointmentBook {
 
     /**
      * Remove appointment by index
-     * @param index  
+     * @param index index of selected row
      */
     public void removeAppointment(int index) {
-        //TODO: 
+        for (int i = 0; i < appointments.length; i++) {
+            if (i == index) { // appointments[i] == elem
+                for (int j = i; j < appointments.length - 1; j++) {
+                    appointments[j] = appointments[j+1];
+                }
+                break;
+            }
+        }
     }
 
     /**
@@ -133,8 +137,20 @@ public class AppointmentBook {
      * Write appointment receipt to receipt.txt
      * @param appointment the appointment  
      */
-    public void writeAppointmentReceiptToFile(Appointment appointment) {
-        //TODO: add formating code
+    public void writeAppointmentReceiptToFile(String path, Appointment appointment) {
+        try {
+            FileWriter fw = new FileWriter(new File(path));
+			FileOutputStream fis = new FileOutputStream(path);
+            PrintWriter pw = new PrintWriter(fis);
+            pw.write(appointment.toReceiptFormat());
+			pw.close();
+        } 
+        catch(FileNotFoundException e) {
+			e.printStackTrace(); 
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -145,7 +161,7 @@ public class AppointmentBook {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         for (Appointment appointment : appointments) {
-            sb.append(appointment.toString() + "\n");
+            sb.append(appointment.toString());
         }
         return sb.toString();
     }

@@ -20,6 +20,10 @@ public class AppointmentBookTest {
         appointmentBook.addAppointment(ap1);
         appointmentBook.addAppointment(ap2);
 
+        appointmentBook.writeAppointmentReceiptToFile("receipt.txt", ap1);
+
+        appointmentBook.removeAppointment(2);
+
         appointmentBook.writeAppointmentsToFile("appointments.txt");
 
         System.out.println(appointmentBook);
