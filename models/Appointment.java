@@ -90,7 +90,11 @@ public class Appointment {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        String line = (customerName + ", " + customerPhone + ", " + stylistName + ", " + HairSalon.date2String(date) + "\n");
+        String line = (customerName + ", " + customerPhone + ", " + stylistName + ", " + HairSalon.date2String(date) +  "\n");
+
+        for (SalonService salonService : salonServices) {
+            line = line + salonService.toString();
+        }
         System.out.println(line);
         sb.append(line);
         return sb.toString();

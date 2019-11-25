@@ -36,7 +36,7 @@ public class ColorService extends SalonService {
      */
     @Override
     public String toString() {
-        String line = super.name + HairSalon.cents2dollarsAndCents((int)getCost());
+        String line = super.name + color + HairSalon.cents2dollarsAndCents((int)getCost() + coloringPrice);
         return line;
     }
 }
