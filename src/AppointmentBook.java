@@ -29,6 +29,10 @@ public class AppointmentBook {
         this.salonServices = new SalonService[0];
     }
 
+    public Appointment[] getAppointments() {
+        return appointments;
+    }
+
     /**
      * Write Appointments to file
      * @param path location of file

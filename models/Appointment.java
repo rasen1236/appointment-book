@@ -31,6 +31,12 @@ public class Appointment {
         this.salonServices = new SalonService[0];
     }
 
+    // Getters
+    public String getCustomerName() { return customerName; }
+    public String getCustomerPhone() { return customerPhone; }
+    public String getStylistName() { return stylistName; }
+    public String getDate() { return HairSalon.date2String(date); }
+
     /**
      * Add a salon service to an appointment
      * @param salonService the salon service
@@ -92,9 +98,9 @@ public class Appointment {
         StringBuilder sb = new StringBuilder();
         String line = (customerName + ", " + customerPhone + ", " + stylistName + ", " + HairSalon.date2String(date) +  "\n");
 
-        for (SalonService salonService : salonServices) {
-            line = line + salonService.toString();
-        }
+        // for (SalonService salonService : salonServices) {
+        //     line = line + salonService.toString();
+        // }
         System.out.println(line);
         sb.append(line);
         return sb.toString();

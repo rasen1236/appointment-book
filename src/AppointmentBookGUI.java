@@ -1,12 +1,6 @@
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JTable;
-import javax.swing.AbstractButton;
-
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import com.apple.eawt.ApplicationListener;
 
 /**
  * AppointmentBookGUI
@@ -15,22 +9,21 @@ public class AppointmentBookGUI extends JFrame implements ActionListener {
 
     private AppointmentBook appointmentBook = new AppointmentBook();
 
-    private String[] buttonNames = { "New Appointment", "Update Appointment", "Remove", "Close"};
-    private String[] columnNames = { "Name", "Contact", "Stylist"}; 
-    private String[][] data = { 
-        { "Kundan Kumar Jha", "4031", "CSE" }, 
-        { "Anand Jha", "6014", "IT" } 
-    }; 
+    private String[] buttonNames = { "New Appointment", "Remove Appointment", "Refresh", "Close"};
 
     private JTable appointmentsTable;
+    private AppointmentTableModel appointmentsTableModel;
+    private JScrollPane appointmentsTablePane;
     private JButton[] buttons;
 
     public AppointmentBookGUI(AppointmentBook appointmentBook)
 	{
-        super("AppointmentBook");
+        super("Hair So Long Appointment System");
         appointmentBook = this.appointmentBook;
+        appointmentBook.loadAppointmentsFromFile("appointments.txt");
+        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         setSize(600,300);
-        setLocation(200,200);
+        setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
         setTable();
         setButtons();
         ContainerSetup();
@@ -38,7 +31,11 @@ public class AppointmentBookGUI extends JFrame implements ActionListener {
     }
 
     private void setTable(){
-        appointmentsTable = new JTable(data, columnNames);
+        appointmentsTablePane = new JScrollPane();
+        appointmentsTable = new JTable();
+        appointmentsTableModel = new AppointmentTableModel(appointmentBook.getAppointments());
+        appointmentsTable.setModel(appointmentsTableModel);
+        appointmentsTablePane.setViewportView(appointmentsTable);
     }
 
     private void setButtons() {
@@ -59,7 +56,7 @@ public class AppointmentBookGUI extends JFrame implements ActionListener {
         for (int i=0; i < buttonNames.length; i++) spanel.add(buttons[i]);
         c.add(spanel,BorderLayout.SOUTH);
 
-        c.add(appointmentsTable, BorderLayout.NORTH);
+        c.add(appointmentsTablePane, BorderLayout.NORTH);
     }
 
     public void actionPerformed(ActionEvent e) {
@@ -67,7 +64,19 @@ public class AppointmentBookGUI extends JFrame implements ActionListener {
         Object source = e.getSource();
 
         if (source == buttons[0]) {
-            AppointmentForm form = new AppointmentForm();
+            // New Appointment
+            AppointmentForm form = new AppointmentForm(appointmentBook);
+        }
+        else if (source == buttons[2]) {
+            // Refresh Table
+            appointmentsTableModel = new AppointmentTableModel(appointmentBook.getAppointments());
+            appointmentsTable.setModel(appointmentsTableModel);
+            appointmentsTable.invalidate();
+        }
+        else if (source == buttons[3]){
+            // Exit
+            appointmentBook.writeAppointmentsToFile("appointments.txt");
+            System.exit(1);
         }
         
     }
