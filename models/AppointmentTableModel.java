@@ -1,3 +1,11 @@
+/*
+// class: AppointmentTableModel
+// Tynan Brown, Seungchol Lee, Rasendra Bhattarai
+// Team 4
+// 19 Nov 2019
+// Description: This AppontmentTableModel class extends the AbstractTableModel ehich has the list of two parameters namely: appointment array and
+// and the customers array which is a string. 
+*/
 import javax.swing.table.AbstractTableModel;
 
 public class AppointmentTableModel extends AbstractTableModel {
