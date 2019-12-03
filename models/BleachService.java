@@ -1,8 +1,12 @@
 // BleachService.java - BleasyService class derrived from SalonService Class
-// Tynan Brown, 19 Nov 2019
+// Tynan Brown, Seungchol Lee, Rasendra Bhattarai
+// Team 4
+// 19 Nov 2019
 
 /**
- * The BleachService class maintains information about the name and price of a Bleach service.
+ *The BleachService class maintains information about the name and price of a Bleach service. It includes the single parameters named peroxide
+ // type and has a specific constructor that takes is used by the implementation class to make the BleachService class. This class is the 
+ // extension of the abstract class SalonService which has the abstract method called: getCost().
  * @author Tynan Brown
  */
 public class BleachService extends SalonService {
