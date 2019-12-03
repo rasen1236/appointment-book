@@ -1,10 +1,17 @@
 import java.util.Date;
 
 // Appointment.java - Appointment super class
-// Tynan Brown, 19 Nov 2019
+// Tynan Brown, Seungchol Lee, Rasendra Bhattarai
+// Team 4
+// 19 Nov 2019
 
 /**
- * The Appointment class maintains information about an appointment
+ * The Appointment class maintains information about an appointment. This class is the data definition class and consists of all the information 
+ * related to the appointment class. This class consists of customer Name, customer phone and stylistName and the salon service array.
+ * This class is used ny the implementation class to produce the required output. This appointment class helps the users which are customers and 
+ * stylist to create, delete and modify an appointment. The appointment's list can be seen by the stylist and it is sorted out in the ascending order.
+ * This programs also calculates the total amount a customer has to pay once he uses this system along with the information about the services he choses to
+ * to receive from us.
  * @author Tynan Brown
  */
 public class Appointment {
