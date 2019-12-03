@@ -8,6 +8,7 @@ import java.io.PrintWriter;
 import java.util.Date;
 import java.util.ArrayList;
 import java.util.Scanner;
+import ui;
 
 // AppointmentBook.java - AppointmentBook class
 // Tynan Brown, 19 Nov 2019
@@ -33,6 +34,10 @@ public class AppointmentBook {
         return appointments;
     }
 
+    public SalonService[] getSalonServices() {
+        return salonServices;
+    }
+
     /**
      * Write Appointments to file
      * @param path location of file
@@ -42,7 +47,10 @@ public class AppointmentBook {
         try {
             String line = null; 
 			Scanner scan = new Scanner(new FileInputStream(new File(path)));  
-			Scanner scanLine = null; 
+            Scanner scanLine = null; 
+            
+            Scanner serviceScan = null;
+
             while (scan.hasNextLine()) {
                 line = scan.nextLine();
 				scanLine = new Scanner(line);
@@ -52,9 +60,10 @@ public class AppointmentBook {
                 String customerPhone = scanLine.next();
                 String stylistName = scanLine.next();
                 Date date = HairSalon.string2Date(scanLine.next());
-                SalonService[] services = new SalonService[0];
-                //TODO: populate salon services
                 Appointment appointment = new Appointment(customerName, customerPhone, stylistName, date);
+                appointment.addSalonService(new ColorService("Color", 20, "green", 5));
+                //TODO: populate salon services
+                
                 addAppointment(appointment);
             }
             scan.close();
@@ -65,6 +74,13 @@ public class AppointmentBook {
         catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public void loadSalonServices() {
+        SalonService service1 = new ColorService("Match Color", 20.0, "Red", 5);
+        SalonService service2 = new StyleService("Russion Bob", 22.0, "Wicked", 5);
+        SalonService[] tempArr = new SalonService[] {service1, service2 };
+        salonServices = tempArr;
     }
 
     /**
@@ -108,32 +124,27 @@ public class AppointmentBook {
      * Remove appointment by index
      * @param index index of selected row
      */
-    public void removeAppointment(int index) {
+    public void removeAppointment(int rowIndex) {
         for (int i = 0; i < appointments.length; i++) {
-            if (i == index) { // appointments[i] == elem
-                for (int j = i; j < appointments.length - 1; j++) {
-                    appointments[j] = appointments[j+1];
+            if (i == rowIndex) { 
+                Appointment[] newArr = new Appointment[appointments.length - 1]; 
+                for(int index = 0; index < i; index++){
+                    newArr[index] = appointments[index];
                 }
+                for(int j = i; j < appointments.length - 1; j++){
+                    newArr[j] = appointments[j+1];
+                }
+                appointments = newArr;
                 break;
             }
         }
     }
 
     /**
-     * Returns the index of the appointment
-     * @param customerName the name of the customer
-     * @return index
-     */
-    public int search(String customername) {
-        // TODO:
-        return -1;
-    }
-
-    /**
      * Sort appointment by date
      * @return 
      */
-    public void sort() {
+    public void sortByDate() {
         // TODO: 
     }
 

@@ -9,7 +9,7 @@ public class AppointmentBookGUI extends JFrame implements ActionListener {
 
     private AppointmentBook appointmentBook = new AppointmentBook();
 
-    private String[] buttonNames = { "New Appointment", "Remove Appointment", "Refresh", "Close"};
+    private String[] buttonNames = { "New Appointment", "Remove Appointment", "Print Receipt", "Refresh", "Close"};
 
     private JTable appointmentsTable;
     private AppointmentTableModel appointmentsTableModel;
@@ -21,6 +21,7 @@ public class AppointmentBookGUI extends JFrame implements ActionListener {
         super("Hair So Long Appointment System");
         appointmentBook = this.appointmentBook;
         appointmentBook.loadAppointmentsFromFile("appointments.txt");
+        appointmentBook.loadSalonServices();
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         setSize(600,300);
         setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
@@ -45,6 +46,13 @@ public class AppointmentBookGUI extends JFrame implements ActionListener {
             buttons[i] = new JButton( buttonNames[i]);
             buttons[i].addActionListener(this);
         }
+
+    }
+
+    private void resetTable() {
+        appointmentsTableModel = new AppointmentTableModel(appointmentBook.getAppointments());
+        appointmentsTable.setModel(appointmentsTableModel);
+        appointmentsTable.invalidate();
     }
 
     private void ContainerSetup()
@@ -65,15 +73,24 @@ public class AppointmentBookGUI extends JFrame implements ActionListener {
 
         if (source == buttons[0]) {
             // New Appointment
-            AppointmentForm form = new AppointmentForm(appointmentBook);
+            AppointmentGUI form = new AppointmentGUI(appointmentBook);
         }
+        else if (source == buttons[1]) {
+            // Remove Appointment
+            int index = appointmentsTable.getSelectedRow();
+            appointmentBook.removeAppointment(index);
+            resetTable();
+        } 
         else if (source == buttons[2]) {
-            // Refresh Table
-            appointmentsTableModel = new AppointmentTableModel(appointmentBook.getAppointments());
-            appointmentsTable.setModel(appointmentsTableModel);
-            appointmentsTable.invalidate();
+            // Print Receipt
+            int index = appointmentsTable.getSelectedRow();
+            ReceiptGUI r = new ReceiptGUI("RECEIPT");
         }
-        else if (source == buttons[3]){
+        else if (source == buttons[3]) {
+            // Refresh Table
+            resetTable();
+        }
+        else if (source == buttons[4]) {
             // Exit
             appointmentBook.writeAppointmentsToFile("appointments.txt");
             System.exit(1);
@@ -84,7 +101,6 @@ public class AppointmentBookGUI extends JFrame implements ActionListener {
     public static void main(String[] args) {
         
         AppointmentBookGUI app = new AppointmentBookGUI(new AppointmentBook());
-
         app.addWindowListener( new WindowAdapter()
 		{
 			public void windowClosing(WindowEvent e) { System.exit(0); } 

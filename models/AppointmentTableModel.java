@@ -68,13 +68,13 @@ public class AppointmentTableModel extends AbstractTableModel {
         return value;
     }
 
-    // /**
-    //  * This will return the user at the specified row...
-    //  * @param row
-    //  * @return 
-    //  */
-    // public User getUserAt(int row) {
-    //     return users.get(row);
-    // }
+    /**
+     * This will return the appointment at the specified row...
+     * @param row
+     * @return 
+     */
+    public Appointment getAppointmentAt(int row) {
+        return appointments[i];
+    }
 
 }
