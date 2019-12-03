@@ -1,7 +1,9 @@
 import java.util.Date;
 
 // Appointment.java - Appointment super class
-// Tynan Brown, 19 Nov 2019
+// Tynan Brown, Suengchol Lee, Rasendra Bhattarai 
+// Team 3
+// 19 Nov 2019
 
 /**
  * The Appointment class maintains information about an appointment
