@@ -1,9 +1,14 @@
 // ColorService.java - SalonService class derrived from SalonService Class
-// Tynan Brown, 19 Nov 2019
+Tynan Brown, Seungchol Lee, Rasendra Bhattarai
+// Team 4
+// 19 Nov 2019
 
 /**
- * The ColorService class maintains information about the name and price of a color service.
- * @author Tynan Brown
+ *The ColorService class maintains information about the name and price of a Bleach service. It includes the two parameters named color and color price
+ // type and has a specific constructor that takes is used by the implementation class to make the ColorService class. This class is the 
+ // extension of the abstract class SalonService which has the abstract method called: getCost(). This class is responsoble for adding the service 
+ // to the appointment. Without this class the salon service for the Color service class cant be able to made.
+ * 
  */
 public class ColorService extends SalonService {
 
