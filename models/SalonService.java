@@ -1,9 +1,12 @@
 // SalonService.java - SalonService super class
-// Tynan Brown, 19 Nov 2019
+Tynan Brown, Seungchol Lee, Rasendra Bhattarai
+// Team 4
+// 19 Nov 2019
 
 /**
- * The SalonService class maintains information about a service provided by the salon.
- * @author Tynan Brown
+ // This is a abstract class and it cannnot be used to make a salon service object in the implementation. It has two instance variable namely name and 
+ // the price of the service. It has a specific constructor and has two parameters passed to it. It consists of abstract method named: getCost().
+ // This class is extending four classes namely: Bleach service, color service, blowout and style service.
  */
 public abstract class SalonService {
 
