@@ -8,7 +8,6 @@ import java.io.PrintWriter;
 import java.util.Date;
 import java.util.ArrayList;
 import java.util.Scanner;
-import ui;
 
 // AppointmentBook.java - AppointmentBook class
 // Tynan Brown, 19 Nov 2019
@@ -18,6 +17,9 @@ import ui;
  * @author Tynan Brown
  */
 public class AppointmentBook {
+
+    private String appointmentsPath = "appointments.txt";
+    private String receiptPath = "Receipt.txt";
 
     private Appointment[] appointments;
     private SalonService[] salonServices;
@@ -30,26 +32,16 @@ public class AppointmentBook {
         this.salonServices = new SalonService[0];
     }
 
-    public Appointment[] getAppointments() {
-        return appointments;
-    }
-
-    public SalonService[] getSalonServices() {
-        return salonServices;
-    }
-
     /**
      * Write Appointments to file
      * @param path location of file
      * @param appointments array of all appointments
      */
-    public void loadAppointmentsFromFile(String path) {
+    public void loadAppointmentsFromFile() {
         try {
             String line = null; 
-			Scanner scan = new Scanner(new FileInputStream(new File(path)));  
-            Scanner scanLine = null; 
-            
-            Scanner serviceScan = null;
+			Scanner scan = new Scanner(new FileInputStream(new File(appointmentsPath)));  
+            Scanner scanLine = null;
 
             while (scan.hasNextLine()) {
                 line = scan.nextLine();
@@ -88,10 +80,10 @@ public class AppointmentBook {
      * @param path location of file
      * @param appointments array of all appointments
      */
-    public void writeAppointmentsToFile(String path) {
+    public void writeAppointmentsToFile() {
         try {
-            FileWriter fw = new FileWriter(new File(path));
-			FileOutputStream fis = new FileOutputStream(path);
+            FileWriter fw = new FileWriter(new File(appointmentsPath));
+			FileOutputStream fis = new FileOutputStream(appointmentsPath);
             PrintWriter pw = new PrintWriter(fis);
 			pw.write(this.toString());
 			pw.close();
@@ -141,24 +133,17 @@ public class AppointmentBook {
     }
 
     /**
-     * Sort appointment by date
-     * @return 
-     */
-    public void sortByDate() {
-        // TODO: 
-    }
-
-    /**
-     * Write appointment receipt to receipt.txt
+     * Write and return appointment receipt to receipt.txt
      * @param appointment the appointment  
+     * @return appointment receipt
      */
-    public void writeAppointmentReceiptToFile(String path, Appointment appointment) {
+    public String writeAppointmentReceiptToFile(int rowIndex) {
         try {
-            FileWriter fw = new FileWriter(new File(path));
-			FileOutputStream fis = new FileOutputStream(path);
+            FileWriter fw = new FileWriter(new File(receiptPath));
+			FileOutputStream fis = new FileOutputStream(receiptPath);
             PrintWriter pw = new PrintWriter(fis);
-            pw.write(appointment.toReceiptFormat());
-			pw.close();
+            pw.write(appointments[rowIndex].toReceiptFormat());
+            pw.close();
         } 
         catch(FileNotFoundException e) {
 			e.printStackTrace(); 
@@ -166,6 +151,15 @@ public class AppointmentBook {
         catch (Exception e) {
             e.printStackTrace();
         }
+        return appointments[rowIndex].toReceiptFormat();
+    }
+
+    public Appointment[] getAppointments() {
+        return appointments;
+    }
+
+    public SalonService[] getSalonServices() {
+        return salonServices;
     }
 
     /**
@@ -180,5 +174,4 @@ public class AppointmentBook {
         }
         return sb.toString();
     }
-    
 }

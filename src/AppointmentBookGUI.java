@@ -20,10 +20,10 @@ public class AppointmentBookGUI extends JFrame implements ActionListener {
 	{
         super("Hair So Long Appointment System");
         appointmentBook = this.appointmentBook;
-        appointmentBook.loadAppointmentsFromFile("appointments.txt");
+        appointmentBook.loadAppointmentsFromFile();
         appointmentBook.loadSalonServices();
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-        setSize(600,300);
+        setSize(700,300);
         setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
         setTable();
         setButtons();
@@ -32,11 +32,10 @@ public class AppointmentBookGUI extends JFrame implements ActionListener {
     }
 
     private void setTable(){
-        appointmentsTablePane = new JScrollPane();
         appointmentsTable = new JTable();
+        appointmentsTablePane = new JScrollPane(appointmentsTable);
         appointmentsTableModel = new AppointmentTableModel(appointmentBook.getAppointments());
         appointmentsTable.setModel(appointmentsTableModel);
-        appointmentsTablePane.setViewportView(appointmentsTable);
     }
 
     private void setButtons() {
@@ -46,7 +45,6 @@ public class AppointmentBookGUI extends JFrame implements ActionListener {
             buttons[i] = new JButton( buttonNames[i]);
             buttons[i].addActionListener(this);
         }
-
     }
 
     private void resetTable() {
@@ -58,13 +56,13 @@ public class AppointmentBookGUI extends JFrame implements ActionListener {
     private void ContainerSetup()
 	{
         Container c = getContentPane();
+        // Center Layout
+        c.add(appointmentsTablePane, BorderLayout.CENTER);
 
         //South Layout
         JPanel spanel = new JPanel();
         for (int i=0; i < buttonNames.length; i++) spanel.add(buttons[i]);
         c.add(spanel,BorderLayout.SOUTH);
-
-        c.add(appointmentsTablePane, BorderLayout.NORTH);
     }
 
     public void actionPerformed(ActionEvent e) {
@@ -84,7 +82,7 @@ public class AppointmentBookGUI extends JFrame implements ActionListener {
         else if (source == buttons[2]) {
             // Print Receipt
             int index = appointmentsTable.getSelectedRow();
-            ReceiptGUI r = new ReceiptGUI("RECEIPT");
+            ReceiptGUI r = new ReceiptGUI(appointmentBook.writeAppointmentReceiptToFile(index));
         }
         else if (source == buttons[3]) {
             // Refresh Table
@@ -92,10 +90,9 @@ public class AppointmentBookGUI extends JFrame implements ActionListener {
         }
         else if (source == buttons[4]) {
             // Exit
-            appointmentBook.writeAppointmentsToFile("appointments.txt");
+            appointmentBook.writeAppointmentsToFile();
             System.exit(1);
         }
-        
     }
 
     public static void main(String[] args) {

@@ -9,7 +9,7 @@ public class AppointmentBookTest {
 
         AppointmentBook appointmentBook = new AppointmentBook();
 
-        appointmentBook.loadAppointmentsFromFile("appointments.txt");
+        appointmentBook.loadAppointmentsFromFile();
 
         Appointment ap1 = new Appointment("Pauline Brown", "+1571234583", "Kelley", new Date());
         Appointment ap2 = new Appointment("Kelly Warwick", "+1461824893", "Julie Kao", new Date());
@@ -20,11 +20,11 @@ public class AppointmentBookTest {
         appointmentBook.addAppointment(ap1);
         appointmentBook.addAppointment(ap2);
 
-        appointmentBook.writeAppointmentReceiptToFile("receipt.txt", ap1);
+        appointmentBook.writeAppointmentReceiptToFile(1);
 
         appointmentBook.removeAppointment(2);
 
-        appointmentBook.writeAppointmentsToFile("appointments.txt");
+        appointmentBook.writeAppointmentsToFile();
 
         System.out.println(appointmentBook);
     }

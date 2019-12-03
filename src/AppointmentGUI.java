@@ -117,8 +117,6 @@ public class AppointmentGUI extends JFrame implements ActionListener {
         mpanel.add(serviceList);
 
         c.add(mpanel, BorderLayout.CENTER);
-
-
     }
 
     public void actionPerformed(ActionEvent e) {
@@ -146,8 +144,9 @@ public class AppointmentGUI extends JFrame implements ActionListener {
 	{
         super("New Appointment");
         this.appointmentBook = appointmentBook;
+        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         setSize(300,300);
-        setLocation(400,400);
+        setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
         setButtons();
         setLabels();
         setTextfields();
