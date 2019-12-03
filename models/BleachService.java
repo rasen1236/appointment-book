@@ -6,8 +6,9 @@
 /**
  *The BleachService class maintains information about the name and price of a Bleach service. It includes the single parameters named peroxide
  // type and has a specific constructor that takes is used by the implementation class to make the BleachService class. This class is the 
- // extension of the abstract class SalonService which has the abstract method called: getCost().
- * @author Tynan Brown
+ // extension of the abstract class SalonService which has the abstract method called: getCost(). This class is responsoble for adding the service 
+ // to the appointment. Without this class the salon service for the bleach service class cant be able to made.
+ * 
  */
 public class BleachService extends SalonService {
 
